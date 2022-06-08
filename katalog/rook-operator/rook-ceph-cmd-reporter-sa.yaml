@@ -1,0 +1,12 @@
+# Service account for the job that reports the Ceph version in an image
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-ceph-cmd-reporter
+  namespace: rook-ceph # namespace:cluster
+  labels:
+    operator: rook
+    storage-backend: ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+# imagePullSecrets:
+#   - name: my-registry-secret

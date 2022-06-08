@@ -1,0 +1,8 @@
+# Service account for the CephFS CSI driver
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-csi-cephfs-plugin-sa
+  namespace: rook-ceph # namespace:operator
+# imagePullSecrets:
+#   - name: my-registry-secret

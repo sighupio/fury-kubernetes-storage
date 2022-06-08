@@ -1,0 +1,12 @@
+# Service account for the Rook-Ceph operator
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-ceph-system
+  namespace: rook-ceph # namespace:operator
+  labels:
+    operator: rook
+    storage-backend: ceph
+    app.kubernetes.io/part-of: rook-ceph-operator
+# imagePullSecrets:
+#   - name: my-registry-secret

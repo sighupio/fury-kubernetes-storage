@@ -1,0 +1,8 @@
+# Service account for the RBD CSI driver
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-csi-rbd-plugin-sa
+  namespace: rook-ceph # namespace:operator
+# imagePullSecrets:
+#   - name: my-registry-secret

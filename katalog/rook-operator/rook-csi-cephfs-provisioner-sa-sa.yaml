@@ -1,0 +1,8 @@
+# Service account for the CephFS CSI provisioner
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-csi-cephfs-provisioner-sa
+  namespace: rook-ceph # namespace:operator
+# imagePullSecrets:
+#   - name: my-registry-secret

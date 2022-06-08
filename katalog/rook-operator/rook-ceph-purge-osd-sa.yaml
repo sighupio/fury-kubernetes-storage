@@ -1,0 +1,8 @@
+# Service account for job that purges OSDs from a Rook-Ceph cluster
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rook-ceph-purge-osd
+  namespace: rook-ceph # namespace:cluster
+# imagePullSecrets:
+#   - name: my-registry-secret
