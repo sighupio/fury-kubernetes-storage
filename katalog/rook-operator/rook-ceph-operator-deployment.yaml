@@ -15,6 +15,8 @@ spec:
   selector:
     matchLabels:
       app: rook-ceph-operator
+  strategy:
+    type: Recreate
   replicas: 1
   template:
     metadata:
@@ -24,7 +26,7 @@ spec:
       serviceAccountName: rook-ceph-system
       containers:
         - name: rook-ceph-operator
-          image: rook/ceph:v1.9.4
+          image: rook/ceph:v1.10.5
           args: ["ceph", "operator"]
           securityContext:
             runAsNonRoot: true
@@ -81,17 +83,6 @@ spec:
             # For more details see https://github.com/rook/rook/issues/1314#issuecomment-355799641
             - name: ROOK_HOSTPATH_REQUIRES_PRIVILEGED
               value: "false"
-
-            # In some situations SELinux relabelling breaks (times out) on large filesystems, and doesn't work with cephfs ReadWriteMany volumes (last relabel wins).
-            # Disable it here if you have similar issues.
-            # For more details see https://github.com/rook/rook/issues/2417
-            - name: ROOK_ENABLE_SELINUX_RELABELING
-              value: "true"
-
-            # In large volumes it will take some time to chown all the files. Disable it here if you have performance issues.
-            # For more details see https://github.com/rook/rook/issues/2254
-            - name: ROOK_ENABLE_FSGROUP
-              value: "true"
 
             # Disable automatic orchestration when new devices are discovered
             - name: ROOK_DISABLE_DEVICE_HOTPLUG
