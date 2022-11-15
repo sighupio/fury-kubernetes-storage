@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rook-ceph-operator-config
-  namespace: rook-ceph # namespace:operator
+  namespace: rook-ceph
 data:
   CSI_PLUGIN_TOLERATIONS: |
     - operator: Exists
