@@ -8,6 +8,9 @@ images:
   - name: rook/ceph
     newName: registry.sighup.io/fury/rook/ceph
     newTag: v1.10.5
+  - name: quay.io/ceph/ceph
+    newName: registry.sighup.io/fury/ceph/ceph
+    newTag: v17.2.5
 
 patchesStrategicMerge:
 - patches/rook-ceph-operator-config-csi-images.yml
@@ -71,6 +74,7 @@ resources:
 - rook-ceph-system-rb.yaml
 - rook-ceph-system-role.yaml
 - rook-ceph-system-sa.yaml
+- rook-ceph-tools-deploy.yml
 - rook-csi-cephfs-plugin-sa-psp-crb.yaml
 - rook-csi-cephfs-plugin-sa-sa.yaml
 - rook-csi-cephfs-provisioner-sa-psp-crb.yaml
