@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rook-ceph
+
+resources:
+  - ceph-blockpool.yml
+  - ceph-cluster.yml
+  - ceph-filesystem.yml
+  - sc-cephfs.yml
+  - sc-rbd.yml
