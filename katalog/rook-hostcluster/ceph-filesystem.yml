@@ -1,0 +1,67 @@
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
+metadata:
+  name: cephfs
+  namespace: rook-ceph
+spec:
+  # The metadata pool spec. Must use replication.
+  metadataPool:
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+    parameters:
+      # Inline compression mode for the data pool
+      # Further reference: https://docs.ceph.com/docs/master/rados/configuration/bluestore-config-ref/#inline-compression
+      compression_mode:
+        none
+  dataPools:
+    - name: replicated
+      failureDomain: host
+      replicated:
+        size: 3
+        # Disallow setting pool with replica 1, this could lead to data loss without recovery.
+        # Make sure you're *ABSOLUTELY CERTAIN* that is what you want
+        requireSafeReplicaSize: true
+      parameters:
+        # Inline compression mode for the data pool
+        # Further reference: https://docs.ceph.com/docs/master/rados/configuration/bluestore-config-ref/#inline-compression
+        compression_mode:
+          none
+  # Whether to preserve filesystem after CephFilesystem CRD deletion
+  preserveFilesystemOnDelete: false
+  metadataServer:
+    # The number of active MDS instances
+    activeCount: 1
+    # Whether each active MDS instance will have an active standby with a warm metadata cache for faster failover.
+    # If false, standbys will be available, but will not have a warm cache.
+    activeStandby: true
+    # The affinity rules to apply to the mds deployment
+    placement:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - rook-ceph-mds
+            # topologyKey: kubernetes.io/hostname will place MDS across different hosts
+            topologyKey: kubernetes.io/hostname
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - rook-ceph-mds
+              # topologyKey: */zone can be used to spread MDS across different AZ
+              # Use <topologyKey: failure-domain.beta.kubernetes.io/zone> in k8s cluster if your cluster is v1.16 or lower
+              # Use <topologyKey: topology.kubernetes.io/zone>  in k8s cluster is v1.17 or upper
+              topologyKey: topology.kubernetes.io/zone
+    priorityClassName: system-cluster-critical
+    livenessProbe:
+      disabled: false
+    startupProbe:
+      disabled: false
