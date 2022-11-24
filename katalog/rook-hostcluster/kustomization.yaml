@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: rook-ceph
 
 resources:
+  - monitoring
   - ceph-blockpool.yml
   - ceph-cluster.yml
   - ceph-filesystem.yml
