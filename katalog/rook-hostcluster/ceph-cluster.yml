@@ -53,7 +53,7 @@ spec:
   # enable prometheus alerting for cluster
   monitoring:
     # requires Prometheus to be pre-installed
-    enabled: false
+    enabled: true
   network:
     connections:
       # Whether to encrypt the data in transit across the wire to prevent eavesdropping the data on the network.
