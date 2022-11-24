@@ -50,7 +50,7 @@ The module is still in version `0.X.X` but can be used in production.
 |-----------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [furyctl][furyctl-repo]     | `>=0.6.0`  | The recommended tool to download and manage KFD modules and their packages. To learn more about `furyctl` read the [official documentation][furyctl-repo].     |
 | [kustomize][kustomize-repo] | `>=3.5.3`  | Packages are customized using `kustomize`. To learn how to create your customization layer with `kustomize`, please refer to the [repository][kustomize-repo]. |
-| [cert-manager][fury-ingress]| `>=1.13.0` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CR are correctly configured.                                        |
+| [cert-manager][fury-ingress]| `>=1.13.0` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CRs are correctly configured.                                        |
 
 ### Deployment
 
