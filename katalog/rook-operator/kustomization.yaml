@@ -1,0 +1,85 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: rook-ceph
+
+images:
+  - name: rook/ceph
+    newName: registry.sighup.io/fury/rook/ceph
+    newTag: v1.10.5
+  - name: quay.io/ceph/ceph
+    newName: registry.sighup.io/fury/ceph/ceph
+    newTag: v17.2.5
+
+patchesStrategicMerge:
+  - patches/rook-ceph-operator-config-csi-images.yml
+  - patches/rook-ceph-operator-config-csi-tolerations.yml
+
+resources:
+  - cephfs-csi-nodeplugin-cr.yaml
+  - cephfs-csi-nodeplugin-crb.yaml
+  - cephfs-csi-provisioner-role-cfg-rb.yaml
+  - cephfs-csi-provisioner-role-crb.yaml
+  - cephfs-external-provisioner-cfg-role.yaml
+  - cephfs-external-provisioner-runner-cr.yaml
+  - crds.yaml
+  - rbd-csi-nodeplugin-cr.yaml
+  - rbd-csi-nodeplugin-crb.yaml
+  - rbd-csi-nodeplugin-role-cfg-rb.yaml
+  - rbd-csi-nodeplugin-role.yaml
+  - rbd-csi-provisioner-role-cfg-rb.yaml
+  - rbd-csi-provisioner-role-crb.yaml
+  - rbd-external-provisioner-cfg-role.yaml
+  - rbd-external-provisioner-runner-cr.yaml
+  - rook-ceph-cluster-mgmt-cr.yaml
+  - rook-ceph-cluster-mgmt-rb.yaml
+  - rook-ceph-cmd-reporter-psp-rb.yaml
+  - rook-ceph-cmd-reporter-rb.yaml
+  - rook-ceph-cmd-reporter-role.yaml
+  - rook-ceph-cmd-reporter-sa.yaml
+  - rook-ceph-default-psp-rb.yaml
+  - rook-ceph-global-cr.yaml
+  - rook-ceph-global-crb.yaml
+  - rook-ceph-mgr-cluster-cr.yaml
+  - rook-ceph-mgr-cluster-crb.yaml
+  - rook-ceph-mgr-psp-rb.yaml
+  - rook-ceph-mgr-rb.yaml
+  - rook-ceph-mgr-role.yaml
+  - rook-ceph-mgr-sa.yaml
+  - rook-ceph-mgr-system-cr.yaml
+  - rook-ceph-mgr-system-rb.yaml
+  - rook-ceph-namespace.yaml
+  - rook-ceph-object-bucket-cr.yaml
+  - rook-ceph-object-bucket-crb.yaml
+  - rook-ceph-operator-config-cm.yaml
+  - rook-ceph-operator-deployment.yaml
+  - rook-ceph-osd-cr.yaml
+  - rook-ceph-osd-crb.yaml
+  - rook-ceph-osd-psp-rb.yaml
+  - rook-ceph-osd-rb.yaml
+  - rook-ceph-osd-role.yaml
+  - rook-ceph-osd-sa.yaml
+  - rook-ceph-purge-osd-psp-rb.yaml
+  - rook-ceph-purge-osd-rb.yaml
+  - rook-ceph-purge-osd-role.yaml
+  - rook-ceph-purge-osd-sa.yaml
+  - rook-ceph-rgw-psp-rb.yaml
+  - rook-ceph-rgw-rb.yaml
+  - rook-ceph-rgw-role.yaml
+  - rook-ceph-rgw-sa.yaml
+  - rook-ceph-system-cr.yaml
+  - rook-ceph-system-crb.yaml
+  - rook-ceph-system-psp-crb.yaml
+  - rook-ceph-system-rb.yaml
+  - rook-ceph-system-role.yaml
+  - rook-ceph-system-sa.yaml
+  - rook-ceph-tools-deploy.yml
+  - rook-csi-cephfs-plugin-sa-psp-crb.yaml
+  - rook-csi-cephfs-plugin-sa-sa.yaml
+  - rook-csi-cephfs-provisioner-sa-psp-crb.yaml
+  - rook-csi-cephfs-provisioner-sa-sa.yaml
+  - rook-csi-rbd-plugin-sa-psp-crb.yaml
+  - rook-csi-rbd-plugin-sa-sa.yaml
+  - rook-csi-rbd-provisioner-sa-psp-crb.yaml
+  - rook-csi-rbd-provisioner-sa-sa.yaml
