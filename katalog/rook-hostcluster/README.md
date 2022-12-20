@@ -47,7 +47,7 @@ You can access the Ceph dashboard with your browser by port-forwarding on port 8
 kubectl port-forward svc/rook-ceph-mgr-dashboard 8443:8443 --namespace rook-ceph
 ```
 
-You can retrieve the generated credentials for the `admin` user running the follwing:
+You can retrieve the generated credentials for the `admin` user running the following command:
 
 ```shell
 kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
