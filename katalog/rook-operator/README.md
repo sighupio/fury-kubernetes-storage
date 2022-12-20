@@ -23,7 +23,7 @@ See [Rook website][rook-website] for more details about the project.
 You can deploy the Rook operator with the following command:
 
 ```bash
-kustomize build . | kubectl apply -f -
+kustomize build . | kubectl apply -f - --server-side
 ```
 
 <!-- Links -->

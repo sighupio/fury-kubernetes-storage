@@ -46,11 +46,12 @@ The module is still in version `0.X.X` but can be used in production.
 
 ### Prerequisites
 
-| Tool                        | Version    | Description                                                                                                                                                    |
-|-----------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [furyctl][furyctl-repo]     | `>=0.6.0`  | The recommended tool to download and manage KFD modules and their packages. To learn more about `furyctl` read the [official documentation][furyctl-repo].     |
-| [kustomize][kustomize-repo] | `3.5.3`  | Packages are customized using `kustomize`. To learn how to create your customization layer with `kustomize`, please refer to the [repository][kustomize-repo]. |
-| [cert-manager][fury-ingress]| `>=1.13.1` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CRs are correctly configured.                                        |
+| Tool                                  | Version    | Description                                                                                                                                                    |
+|---------------------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [furyctl][furyctl-repo]               | `>=0.6.0`  | The recommended tool to download and manage KFD modules and their packages. To learn more about `furyctl` read the [official documentation][furyctl-repo].     |
+| [kustomize][kustomize-repo]           | `3.5.3`    | Packages are customized using `kustomize`. To learn how to create your customization layer with `kustomize`, please refer to the [repository][kustomize-repo]. |
+| [cert-manager][fury-ingress]          | `>=1.13.1` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CRs are correctly configured.                                       |
+| [prometheus-opeator][fury-monitoring] | `>=2.0.1`  | prometheus-operator is needed by Rook in order to install the ServiceMonitor needed to monitor the Ceph cluster.                                               |
 
 ### Deployment
 
@@ -79,6 +80,7 @@ bases:
 ```yaml
 resources:
   - ./vendor/katalog/ingress/cert-manager
+  - ./vendor/katalog/monitoring/prometheus-operator
   - ./vendor/katalog/storage/rook-operator
   - ./vendor/katalog/storage/rook-hostcluster
 ```
@@ -86,7 +88,7 @@ resources:
 5. To deploy the packages to your cluster, execute:
 
 ```bash
-kustomize build . | kubectl apply -f -
+kustomize build . | kubectl apply -f - --server-side
 ```
 
 <!-- Links -->
@@ -98,6 +100,7 @@ kustomize build . | kubectl apply -f -
 [kfd-docs]: https://docs.kubernetesfury.com/docs/distribution/
 [compatibility-matrix]: https://github.com/sighupio/fury-kubernetes-storage/blob/main/docs/COMPATIBILITY_MATRIX.md
 [fury-ingress]: https://github.com/sighupio/fury-kubernetes-ingress/tree/main/katalog/cert-manager
+[fury-monitoring]: https://github.com/sighupio/fury-kubernetes-monitoring/tree/main/katalog/prometheus-operator
 
 <!-- </KFD-DOCS> -->
 
