@@ -6,9 +6,9 @@
 |-------------------------------------|:------------------:|--------------------|--------------------|
 | v0.1.0                              | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
-## Operator compatibility against Ceph cluster versions
+## Rook Operator compatibility against Ceph cluster versions
 
-| Module Version / Kafka Cluster Version | >= 16.2.0          | >= 17.2.0          |
+| Module Version / Ceph Cluster Version | >= 16.2.0          | >= 17.2.0          |
 |----------------------------------------|--------------------|--------------------|
 | v0.1.0                                 | :white_check_mark: | :white_check_mark: |
 
