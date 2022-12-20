@@ -49,8 +49,8 @@ The module is still in version `0.X.X` but can be used in production.
 | Tool                        | Version    | Description                                                                                                                                                    |
 |-----------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [furyctl][furyctl-repo]     | `>=0.6.0`  | The recommended tool to download and manage KFD modules and their packages. To learn more about `furyctl` read the [official documentation][furyctl-repo].     |
-| [kustomize][kustomize-repo] | `>=3.5.3`  | Packages are customized using `kustomize`. To learn how to create your customization layer with `kustomize`, please refer to the [repository][kustomize-repo]. |
-| [cert-manager][fury-ingress]| `>=1.13.0` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CRs are correctly configured.                                        |
+| [kustomize][kustomize-repo] | `3.5.3`  | Packages are customized using `kustomize`. To learn how to create your customization layer with `kustomize`, please refer to the [repository][kustomize-repo]. |
+| [cert-manager][fury-ingress]| `>=1.13.1` | cert-manager is needed by Rook in order to install a Validating Webhook to asses that Rook CRs are correctly configured.                                        |
 
 ### Deployment
 
@@ -94,7 +94,7 @@ kustomize build . | kubectl apply -f -
 [furyctl-repo]: https://github.com/sighupio/furyctl
 [kustomize-repo]: https://github.com/kubernetes-sigs/kustomize
 [kfd-docs]: https://docs.kubernetesfury.com/docs/distribution/
-[compatibility-matrix]: docs/COMPATIBILITY_MATRIX.md
+[compatibility-matrix]: https://github.com/sighupio/fury-kubernetes-storage/blob/main/docs/COMPATIBILITY_MATRIX.md
 [fury-ingress]: https://github.com/sighupio/fury-kubernetes-ingress/tree/main/katalog/cert-manager
 
 <!-- </KFD-DOCS> -->
