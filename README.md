@@ -60,7 +60,7 @@ The module is still in version `0.X.X` but can be used in production.
 ```yaml
 bases:
   - name: ingress/cert-manager
-    version: "v1.13.0"
+    version: "v1.13.1"
   - name: monitoring/promtheus-operator
     version: "v2.0.1"
   - name: storage/rook-operator
