@@ -108,7 +108,7 @@ kustomize build . | kubectl apply -f - --server-side
 
 ## Contributing
 
-Before contributing, please read first the [Contributing Guidelines](docs/CONTRIBUTING.md).
+Before contributing, please read first the [Contributing Guidelines](https://docs.kubernetesfury.com/docs/contribute/).
 
 ### Reporting Issues
 
