@@ -20,7 +20,7 @@ See [Rook website][rook-website] for more details about the project.
 
 ## Deployment
 
-You can deploy the Strimzi operator with the following command:
+You can deploy the Rook operator with the following command:
 
 ```bash
 kustomize build . | kubectl apply -f -
