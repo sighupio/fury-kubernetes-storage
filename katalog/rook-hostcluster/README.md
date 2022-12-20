@@ -10,6 +10,7 @@ Rook Host Cluster deploys a Ceph [host storage cluster](https://rook.io/docs/roo
 - Kustomize = `v3.5.3`
 - [rook-operator](../rook-operator)
 - [prometheus-operator](https://github.com/sighupio/fury-kubernetes-monitoring/tree/main/katalog/prometheus-operator)
+- Empty raw disks attached to Ceph nodes
 
 ## Image repository and tag
 
