@@ -1,0 +1,51 @@
+# Copyright (c) 2017-present SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+---
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  storage:
+    # Only create OSDs on devices that match the regular expression filter, "sdb" in this example
+    deviceFilter: sdb
+  placement:
+    all:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node.kubernetes.io/role
+              operator: In
+              values:
+                - storage
+      tolerations:
+        - effect: NoSchedule
+          key: node.kubernetes.io/role
+          operator: Equal
+          value: storage
+---
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
+metadata:
+  name: cephfs
+  namespace: rook-ceph
+spec:
+  metadataServer:
+    placement:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: node.kubernetes.io/role
+              operator: In
+              values:
+                - storage
+      tolerations:
+        - effect: NoSchedule
+          key: node.kubernetes.io/role
+          operator: Equal
+          value: storage
