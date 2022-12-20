@@ -39,6 +39,25 @@ You can deploy Rook Host Cluster by running the following command:
 kustomize build | kubectl apply -f -
 ```
 
+### Accessing Ceph dashboard
+
+You can access the Ceph dashboard with your browser by port-forwarding on port 8443:
+
+```shell
+kubectl port-forward svc/rook-ceph-mgr-dashboard 8443:8443 --namespace rook-ceph
+```
+
+You can retrieve the generated credentials for the `admin` user running the follwing:
+
+```shell
+kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
+```
+
+Now if you go to <https://127.0.0.1:8443> on your browser you can authenticate and interact with your Ceph cluster.
+
+> ⚠️ **WARNING**
+> Be careful since, by default, the dashboard gives you R/W access to your Ceph cluster and you risk of deleting resources created throught the operator CRDs.
+
 <!-- </KFD-DOCS> -->
 
 ## License
