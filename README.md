@@ -17,7 +17,7 @@ If you are new to KFD please refer to the [official documentation][kfd-docs] on 
 
 **Kubernetes Fury Storage** uses the [Rook operator][rook-page] to install and manage Ceph clusters in a Kubernetes environment.
 
-All the components are deployed in the `rook-ceph` namespace in the cluster.
+All the components are deployed in the `rook-ceph` namespace of the cluster.
 
 ## Packages
 
