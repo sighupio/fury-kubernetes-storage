@@ -8,7 +8,7 @@ The reference architecture implemented by this module is one with a dedicated no
 ![Fury Storage Reference Architecture](../../docs/assets/reference-architecture.png)
 
 > ⚠️ **WARNING**
-> Most probably, you don't want to use this package *as-is* but you want to chosse where the Ceph cluster will be deployed. Head over to the [example](../../examples/rook-hostcluster-nodeSelector/) that shows how to do that.
+> Most probably, you don't want to use this package *as-is* but you want to choose in which nodes the Ceph cluster will be deployed. Head over to the [example](../../examples/rook-hostcluster-nodeSelector/) that shows how to do that.
 
 ## Requirements
 
