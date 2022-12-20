@@ -23,7 +23,9 @@ The reference architecture implemented by this module is one with a dedicated no
 * Ceph image: `registry.sighup.io/fury/ceph/ceph:v17.2.`
 
 ## Configuration
-This package deploys Ceph with the following configuration
+
+This package deploys Ceph with the following configuration:
+
 - 2 MGRs
 - 3 MONs and OSDs
 - RBD pool with replication enabled
