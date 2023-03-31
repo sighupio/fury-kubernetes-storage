@@ -11,3 +11,11 @@ bases:
 
 patchesStrategicMerge:
   - rook-operator-nodeSelector.yml
+
+configMapGenerator:
+  # this will slow down the log amount of the CSI components that otherwise is too high
+  - name : rook-ceph-operator-config
+    namespace: rook-ceph
+    behavior: merge
+    literals:
+    - CSI_LOG_LEVEL=0
