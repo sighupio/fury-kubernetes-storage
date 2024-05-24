@@ -7,7 +7,7 @@ namespace: rook-ceph
 images:
   - name: rook/ceph
     newName: registry.sighup.io/fury/rook/ceph
-    newTag: v1.10.5
+    newTag: v1.10.13
   - name: quay.io/ceph/ceph
     newName: registry.sighup.io/fury/ceph/ceph
     newTag: v17.2.5
