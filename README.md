@@ -3,7 +3,7 @@
     Kubernetes Fury Storage
 </h1>
 
-![Release](https://img.shields.io/badge/Latest%20Release-v0.1.1-blue)
+![Release](https://img.shields.io/badge/Latest%20Release-v0.2.0-blue)
 ![License](https://img.shields.io/github/license/sighupio/fury-kubernetes-logging?label=License)
 ![Slack](https://img.shields.io/badge/slack-@kubernetes/fury-yellow.svg?logo=slack&label=Slack)
 
@@ -65,9 +65,9 @@ bases:
   - name: monitoring/promtheus-operator
     version: "v2.0.1"
   - name: storage/rook-operator
-    version: "v0.1.1"
+    version: "v0.2.0"
   - name: storage/rook-hostcluster
-    version: "v0.1.1"
+    version: "v0.2.0"
 ```
 
 > See `furyctl` [documentation][furyctl-repo] for additional details about `Furyfile.yml` format.
