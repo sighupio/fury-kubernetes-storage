@@ -1,0 +1,148 @@
+# Copyright (c) 2024-present SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+kind: pipeline
+name: license
+
+steps:
+  - name: check
+    image: docker.io/library/golang:1.20
+    pull: always
+    commands:
+      - go install github.com/google/addlicense@v1.1.1
+      - addlicense -c "SIGHUP s.r.l" -v -l bsd -y "2017-present" --check .
+
+---
+kind: pipeline
+name: policeman
+
+platform:
+  os: linux
+  arch: amd64
+
+depends_on:
+  - license
+
+steps:
+  - name: lint
+    image: quay.io/sighup/policeman
+    pull: always
+    environment:
+      # Identifies false positives like missing 'selector'. On Kustomize is common to don't set them
+      VALIDATE_KUBERNETES_KUBEVAL: "false"
+      # We use a lot of copy paste in our code, is intended. So it important to don't use this linter
+      VALIDATE_JSCPD: "false"
+      VALIDATE_TERRAFORM_TFLINT: "false"
+      # hadolint already validated dockerfiles
+      VALIDATE_DOCKERFILE: "false"
+      VALIDATE_NATURAL_LANGUAGE: "false"
+    depends_on:
+      - clone
+
+  - name: render
+    image: quay.io/sighup/e2e-testing:1.1.0_0.7.0_3.1.1_1.9.4_1.21.12_3.8.7_4.21.1
+    pull: always
+    depends_on:
+      - clone
+    commands:
+      - kustomize build katalog/rook-hostcluster > rook-hostcluster.yml
+      - kustomize build katalog/rook-operator > rook-operator.yml
+
+  - &check-deprecated-apis
+    name: check-deprecated-apis-rook-hostcluster
+    image: us-docker.pkg.dev/fairwinds-ops/oss/pluto:v5
+    pull: always
+    depends_on:
+      - render
+    commands:
+      # we use --ignore-deprecations because we don't want the CI to fail when the API has not been removed yet.
+      - /pluto detect $${KUBERNETES_MANIFESTS} --ignore-deprecations --target-versions=k8s=v1.25.0
+    environment:
+      KUBERNETES_MANIFESTS: rook-hostcluster.yml
+
+  - <<: *check-deprecated-apis
+    name: check-deprecated-apis-rook-operator
+    environment:
+      KUBERNETES_MANIFESTS: rook-operator.yml
+
+---
+kind: pipeline
+name: release
+
+depends_on:
+  - policeman
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  ref:
+    include:
+      - refs/tags/**
+
+steps:
+  - name: prepare-tar-gz
+    image: alpine:latest
+    pull: always
+    depends_on: [ clone ]
+    commands:
+      - tar -zcvf fury-kubernetes-storage-${DRONE_TAG}.tar.gz katalog/ LICENSE README.md
+
+  - name: prepare-release-notes
+    image: quay.io/sighup/fury-release-notes-plugin:3.7_2.8.4
+    pull: always
+    depends_on: [ clone ]
+    settings:
+      release_notes_file_path: release-notes.md
+
+  - name: publish-prerelease
+    image: plugins/github-release
+    pull: always
+    depends_on:
+      - prepare-tar-gz
+      - prepare-release-notes
+    settings:
+      api_key:
+        from_secret: github_token
+      file_exists: overwrite
+      files:
+        - fury-kubernetes-storage-${DRONE_TAG}.tar.gz
+      prerelease: true
+      overwrite: true
+      title: "Preview ${DRONE_TAG}"
+      note: release-notes.md
+      checksum:
+        - md5
+        - sha256
+    when:
+      ref:
+        include:
+          - refs/tags/v**-rc**
+
+  - name: publish-stable
+    image: plugins/github-release
+    pull: always
+    depends_on:
+      - prepare-tar-gz
+      - prepare-release-notes
+    settings:
+      api_key:
+        from_secret: github_token
+      file_exists: overwrite
+      files:
+        - fury-kubernetes-storage-${DRONE_TAG}.tar.gz
+      prerelease: false
+      overwrite: true
+      title: "Release ${DRONE_TAG}"
+      note: release-notes.md
+      checksum:
+        - md5
+        - sha256
+    when:
+      ref:
+        exclude:
+          - refs/tags/v**-rc**
+        include:
+          - refs/tags/v**

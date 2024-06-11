@@ -3,7 +3,7 @@
     Kubernetes Fury Storage
 </h1>
 
-![Release](https://img.shields.io/badge/Latest%20Release-v0.1.0-blue)
+![Release](https://img.shields.io/badge/Latest%20Release-v0.2.0-blue)
 ![License](https://img.shields.io/github/license/sighupio/fury-kubernetes-logging?label=License)
 ![Slack](https://img.shields.io/badge/slack-@kubernetes/fury-yellow.svg?logo=slack&label=Slack)
 
@@ -25,7 +25,7 @@ The following packages are included in the Fury Kubernetes Storage katalog:
 
 | Package                                      | Version   | Description                                                                                                                                          |
 |----------------------------------------------|-----------|-------------------------------------------------------------------------------------------------|
-| [rook-operator](katalog/rook-operator)       | `v1.10.5` | Rook provides a way to run a highly available, durable Ceph storage in your Kubernetes cluster. |
+| [rook-operator](katalog/rook-operator)       | `v1.10.13`| Rook provides a way to run a highly available, durable Ceph storage in your Kubernetes cluster. |
 | [rook-hostcluster](katalog/rook-hostcluster) | `NA`      | Rook CRDs to run a production ready Ceph cluster providing Block and File storage.              |                                                                                                 |
 
 Click on each package to see its full documentation.
@@ -37,6 +37,7 @@ Click on each package to see its full documentation.
 | `1.22.x`           | :white_check_mark: | No known issues                                     |
 | `1.23.x`           | :white_check_mark: | No known issues                                     |
 | `1.24.x`           | :white_check_mark: | No known issues                                     |
+| `1.25.x`           | :white_check_mark: | No known issues                                     |
 
 Check the [compatibility matrix][compatibility-matrix] for additional information about previous releases of the modules.
 
@@ -64,9 +65,9 @@ bases:
   - name: monitoring/promtheus-operator
     version: "v2.0.1"
   - name: storage/rook-operator
-    version: "v0.1.0"
+    version: "v0.2.0"
   - name: storage/rook-hostcluster
-    version: "v0.1.0"
+    version: "v0.2.0"
 ```
 
 > See `furyctl` [documentation][furyctl-repo] for additional details about `Furyfile.yml` format.

@@ -1,3 +1,7 @@
+# Copyright (c) 2017-present SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 # Used for provisioning ObjectBuckets (OBs) in response to ObjectBucketClaims (OBCs).
 # Note: Rook runs a copy of the lib-bucket-provisioner's OBC controller.
 # OBCs can be created in any Kubernetes namespace, so this must be a cluster-scoped role.
