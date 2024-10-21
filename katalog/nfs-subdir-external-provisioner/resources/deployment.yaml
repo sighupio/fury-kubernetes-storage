@@ -1,0 +1,51 @@
+# Copyright (c) 2017-present SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+# Source: nfs-subdir-external-provisioner/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-subdir-external-provisioner
+  labels:
+    chart: nfs-subdir-external-provisioner-4.0.18
+    heritage: Helm
+    app: nfs-subdir-external-provisioner
+    release: nfs-subdir-external-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nfs-subdir-external-provisioner
+      release: nfs-subdir-external-provisioner
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: nfs-subdir-external-provisioner
+        release: nfs-subdir-external-provisioner
+    spec:
+      serviceAccountName: nfs-subdir-external-provisioner
+      securityContext: {}
+      containers:
+        - name: nfs-subdir-external-provisioner
+          image: "registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2"
+          imagePullPolicy: IfNotPresent
+          securityContext: {}
+          volumeMounts:
+            - name: nfs-subdir-external-provisioner-root
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: cluster.local/nfs-subdir-external-provisioner
+            - name: NFS_SERVER
+              value:
+            - name: NFS_PATH
+              value: /nfs-storage
+      volumes:
+        - name: nfs-subdir-external-provisioner-root
+          nfs:
+            server:
+            path: /nfs-storage
