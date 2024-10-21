@@ -48,6 +48,7 @@ steps:
     commands:
       - kustomize build katalog/rook-hostcluster > rook-hostcluster.yml
       - kustomize build katalog/rook-operator > rook-operator.yml
+      - kustomize build katalog/nfs-subdir-external-provisioner > nfs-subdir-external-provisioner.yml
 
   - &check-deprecated-apis
     name: check-deprecated-apis-rook-hostcluster
@@ -65,6 +66,11 @@ steps:
     name: check-deprecated-apis-rook-operator
     environment:
       KUBERNETES_MANIFESTS: rook-operator.yml
+
+  - <<: *check-deprecated-apis
+    name: check-deprecated-apis-nfs-subdir-external-provisioner
+    environment:
+      KUBERNETES_MANIFESTS: nfs-subdir-external-provisioner.yml
 
 ---
 kind: pipeline
