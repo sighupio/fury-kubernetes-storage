@@ -23,10 +23,11 @@ All the components are deployed in the `rook-ceph` namespace of the cluster.
 
 The following packages are included in the Fury Kubernetes Storage katalog:
 
-| Package                                      | Version   | Description                                                                                                                                          |
-|----------------------------------------------|-----------|-------------------------------------------------------------------------------------------------|
-| [rook-operator](katalog/rook-operator)       | `v1.10.13`| Rook provides a way to run a highly available, durable Ceph storage in your Kubernetes cluster. |
-| [rook-hostcluster](katalog/rook-hostcluster) | `NA`      | Rook CRDs to run a production ready Ceph cluster providing Block and File storage.              |                                                                                                 |
+| Package                                      | Version    | Description                                                                                                                                          |
+|----------------------------------------------|------------|-------------------------------------------------------------------------------------------------|
+| [rook-operator](katalog/rook-operator)       | `v1.10.13` | Rook provides a way to run a highly available, durable Ceph storage in your Kubernetes cluster. |
+| [rook-hostcluster](katalog/rook-hostcluster) | `NA`       | Rook CRDs to run a production ready Ceph cluster providing Block and File storage.              |                                                                                                 |
+| [nfs-subdir-external-provisioner](katalog/nfs-subdir-external-provisioner) | `v4.0.2`   | Dynamic sub-dir volume provisioner on a remote NFS server.            |                                                                                                 |
 
 Click on each package to see its full documentation.
 
